@@ -1,13 +1,15 @@
 import * as React from 'react';
 import List from '../List'; 
+import Input from '../Input'
+import Wrapper from '../Wrapper'
 
 export default TimePicker = () => {
   return (
     <div>
-      <input className="ui-timepicker-input" type="text" />
-      <div class="ui-timepicker-wrapper ui-timepicker-positioned-top optional-custom-classname" tabindex="-1">
+      <Input />
+      <Wrapper>
         <List />
-      </div>
+      </Wrapper>
     </div>
   )
 }

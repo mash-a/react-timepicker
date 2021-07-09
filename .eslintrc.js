@@ -13,11 +13,7 @@ module.exports = {
     },
     "allowImportExportEverywhere": true,
   },
-  "plugins":[
-    "angular",
-    "fp",
-    "react",
-  ],
+  "plugins":["react"],
   "rules": {
     // Stylistic
     "arrow-body-style": ["error", "as-needed"],
@@ -124,30 +120,6 @@ module.exports = {
     "valid-typeof": ["error", {"requireStringLiterals": true}],
     "wrap-iife": ["error", "outside"],
     "yield-star-spacing": ["error", {"after": true, "before": false}],
-
-    // Best Practices - FP
-    "fp/no-arguments": "error",
-    "fp/no-class": "error",
-    "fp/no-delete": "error",
-    "fp/no-events": "error",
-    "fp/no-get-set": "error",
-    "fp/no-let": "error",
-    "fp/no-loops": "error",
-    "fp/no-mutating-assign": "error",
-    "fp/no-mutating-methods": ["error", {
-      "allowedObjects": ['R', 'S']
-    }],
-    "fp/no-mutation": ["error", {"allowThis": true, "exceptions":[
-      { "object":  "$scope" },
-      { "object":  "$ctrl" },
-      { "property":  "$inject" },
-      { "property": "prototype" }
-    ]}],
-    "fp/no-nil": "error",
-    "fp/no-proxy": "error",
-    "fp/no-rest-parameters": "error",
-    "fp/no-throw": "error",
-    "fp/no-valueof-field": "error",
     "no-var": "error",
 
     // React

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ListItem from '../ListItem';
+import ListItem from '../ListItem/ListItem';
 
 const times = {
   hours: [
@@ -46,7 +46,7 @@ const createList = () => {
   })
 }
 
-export default List = ({step = '5'}) => {
+const List = ({step = '5'}) => {
   return (
     <ul className="ui-timepicker-list">
       {times.meridiem.map((m) => {
@@ -61,3 +61,5 @@ export default List = ({step = '5'}) => {
     </ul>
   )
 }
+
+export default List;

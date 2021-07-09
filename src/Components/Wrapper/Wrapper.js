@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export default Wrapper = ({children}) => {
+const Wrapper = ({children}) => {
   return (
     <div 
       className="ui-timepicker-wrapper ui-timepicker-positioned-top optional-custom-classname" 
@@ -9,3 +9,5 @@ export default Wrapper = ({children}) => {
     </div>
   )
 }
+
+export default Wrapper;

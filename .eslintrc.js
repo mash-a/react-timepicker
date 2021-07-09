@@ -3,7 +3,7 @@ module.exports = {
     "browser": true,
     "es6": true,
   },
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 2017,
     "sourceType": "module",
@@ -13,7 +13,11 @@ module.exports = {
     },
     "allowImportExportEverywhere": true,
   },
-  "plugins":["react"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+  ],
+  "plugins":["@babel","react"],
   "rules": {
     // Stylistic
     "arrow-body-style": ["error", "as-needed"],

@@ -1,3 +1,3 @@
-import TimePicker from './Components/TimePicker/TimePicker'
+import TimePicker from './Components/TimePicker/TimePicker';
 
 export { TimePicker };

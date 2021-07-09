@@ -36,30 +36,26 @@ const times = {
   ],
 };
 
-const createList = () => {
-  return times.meridiem.map((m) => {
-    times.hours.map(hour => {
-      times.minutes.map(minute => 
-        <li>{hour}:{minute} {m}</li>
-      )
-    })
-  })
-}
+// const createList = () => times.meridiem.map(m => {
+//     times.hours.map(hour => {
+//       times.minutes.map(minute =>
+//         <li>{hour}:{minute} {m}</li>,
+//       );
+//     });
+//   });
 
-const List = ({step = '5'}) => {
-  return (
+const List = ({ step = '5' }) =>
     <ul className="ui-timepicker-list">
-      {times.meridiem.map((m) => {
-        times.hours.map(hour => {
-          times.minutes.map(minute => 
-            <ListItem itemClass={`ui-timepicker-${m === 'AM' ? 'am' : 'pm'}`}>
+      {times.meridiem.map(m =>
+        times.hours.map(hour =>
+          times.minutes.map((minute, idx) =>
+            <ListItem key={idx} itemClass={`ui-timepicker-${m === 'AM' ? 'am' : 'pm'}`}>
               {hour}:{minute} {m}
-            </ListItem>
-          )
-        })
-      })}
+            </ListItem>,
+          ),
+        ),
+      )}
     </ul>
-  )
-}
+  ;
 
 export default List;

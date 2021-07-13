@@ -1,13 +1,12 @@
 import * as React from 'react';
 
-const ListItem = ({ itemClass, children, setSelected, setTimeValue, value }) => {
+const ListItem = ({ meridiemClass, selectedClass, children, setTimeValue, value }) => {
   const handleClick = () => {
-    setSelected(value);
     setTimeValue(value);
   };
 
   return (
-    <li className={itemClass} onClick={handleClick}>
+    <li className={`${meridiemClass} ${selectedClass}`} onClick={handleClick}>
       {children}
     </li>
   );

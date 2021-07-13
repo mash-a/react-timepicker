@@ -18,17 +18,7 @@ const times = {
   ],
   minutes: [
     '00',
-    // '05',
-    // '10',
-    // '15',
-    // '20',
-    // '25',
     '30',
-    // '35',
-    // '40',
-    // '45',
-    // '50',
-    // '55',
   ],
   meridiem: [
     'AM',
@@ -36,26 +26,16 @@ const times = {
   ],
 };
 
-// const createList = () => times.meridiem.map(m => {
-//     times.hours.map(hour => {
-//       times.minutes.map(minute =>
-//         <li>{hour}:{minute} {m}</li>,
-//       );
-//     });
-//   });
-
-const List = ({ step = '5', setTimeValue }) => {
-  const [selected, setSelected] = React.useState('');
-
-  return (
+const List = ({ setTimeValue, timeValue }) =>
     <ul className="ui-timepicker-list">
       {times.meridiem.map(m =>
         times.hours.map(hour =>
           times.minutes.map((minute, idx) =>
             <ListItem
               key={idx}
-              itemClass={`ui-timepicker-${m === 'AM' ? 'am' : 'pm'}`}
-              setSelected={setSelected}
+              meridiemClass={`ui-timepicker-${m === 'AM' ? 'am' : 'pm'}`}
+              // eslint-disable-next-line max-len
+              selectedClass={`${timeValue === `${hour}:${minute} ${m}` && 'ui-timepicker-selected'}`}
               value={`${hour}:${minute} ${m}`}
               setTimeValue={setTimeValue}>
               {hour}:{minute} {m}
@@ -63,8 +43,6 @@ const List = ({ step = '5', setTimeValue }) => {
           ),
         ),
       )}
-    </ul>
-  );
-};
+    </ul>;
 
 export default List;

@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { DEFAULT_SETTINGS, DEFAULT_LANG, EVENT_DEFAULTS } from './defaults';
+import { DEFAULT_LANG } from './defaults';
 import { ONE_DAY } from './constants';
 
 const anytime2int = (input, settings) => {
@@ -35,12 +35,11 @@ const time2int = (timeString, settings) => {
 
   // timestring without the empty space
   const trimmedTimeStr = timeString.toLowerCase().replace(/[\s.]/g, '');
-
-  const constructedTime = { timeString: trimmedTimeStr };
+  let meridiem = undefined;
 
   // if the last character is an "a" or "p", add the "m"
   if (trimmedTimeStr.slice(-1) === 'a' || trimmedTimeStr.slice(-1) === 'p') {
-    constructedTime.meridiem = `${trimmedTimeStr.slice(-1)}m`;
+    meridiem = `${trimmedTimeStr.slice(-1)}m`;
   }
 
   const pattern = trimmedTimeStr.match(/\W/)
@@ -53,7 +52,7 @@ const time2int = (timeString, settings) => {
   }
 
   const hour = parseInt(Number(time[3]), 10);
-  let ampm = constructedTime.meridiem;
+  let ampm = meridiem || time[8];
   let hours = hour;
   const minutes = Number(time[5]) || 0;
   const seconds = Number(time[7]) || 0;
@@ -65,8 +64,7 @@ const time2int = (timeString, settings) => {
 
   if (hour <= 12 && ampm) {
     ampm = ampm.trim();
-    const isPm = ampm === settings.lang.pm || ampm === settings.lang.PM;
-
+    const isPm = ampm === settings.lang.pm || ampm === settings.lang.PM.toLowerCase();
     if (hour === 12) {
       hours = isPm ? 12 : 0;
     } else {
@@ -84,7 +82,6 @@ const time2int = (timeString, settings) => {
   }
 
   let timeInt = hours * 3600 + minutes * 60 + seconds;
-
   // if no am/pm provided, intelligently guess based on the scrollDefault
   if (
     hour < 12 &&
@@ -175,7 +172,7 @@ const parseSettings = (settings, defaultLang) => {
     ) => a[0] - b[0]);
 
     // merge any overlapping ranges
-    // TODO refactor this to not use a for loop
+    // eslint-disable-next-line no-plusplus
     for (let i = parsedSettings.disableTimeRanges.length - 1; i > 0; i--) {
       if (
         parsedSettings.disableTimeRanges[i][0] <=
@@ -264,6 +261,7 @@ const _int2time = (timeInt, settings) => {
   if (typeof settings.timeFormat === 'function') {
     return settings.timeFormat(time);
   }
+  // console.log({ time });
 
   const formatTime = {
     a: () => time.getHours() > 11
@@ -314,6 +312,8 @@ const _int2time = (timeInt, settings) => {
       : output + code
   , '');
 
+  console.log({ formattedOutput });
+
   return formattedOutput;
 };
 
@@ -333,12 +333,15 @@ const _formatValue = (timeValue, settings, errors, origin, setTimeValue) => {
   //   return;
   // }
 
+  const formatted = { errors, timeValue, origin };
   let seconds = anytime2int(timeValue, settings);
+  console.log({ timeValue, seconds });
 
   // input validation?
   if (seconds == null) {
+
     errors.timeFormatError = 'Please enter a valid time.';
-    return;
+    return formatted;
   }
 
   let rangeError = false;
@@ -367,17 +370,13 @@ const _formatValue = (timeValue, settings, errors, origin, setTimeValue) => {
     }
   }
 
-  const prettyTime = _int2time(seconds, settings);
+  formatted.timeValue = _int2time(seconds, settings);
 
   if (rangeError) {
     errors.timeRangeError = 'Please select a time within the time range.';
   }
 
-  return {
-    errors,
-    origin,
-    timeValue: prettyTime,
-  };
+  return formatted;
 };
 
 export {

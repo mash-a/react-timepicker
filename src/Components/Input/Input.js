@@ -1,16 +1,31 @@
 import * as React from 'react';
-import { _formatValue } from 'utils/main';
-import { DEFAULT_SETTINGS } from 'utils/defaults';
 
-const Input = ({ open, value, setTimeValue, setOpen }) => {
+const Input = ({
+  err,
+  formatTimeValue,
+  setShowErr,
+  setErr,
+  showErr,
+  open,
+  value,
+  setTimeValue,
+  setOpen,
+}) => {
+
+  React.useEffect(() => {
+    Object.values(err).length ? setShowErr(true) : setShowErr(false);
+  }, [err]);
+
+  React.useEffect(() => {
+    !value && setErr({});
+  }, [value]);
 
   const handleInput = ({ target: { value } }) => {
     setTimeValue(value);
   };
 
   const handleBlur = ({ target: { value } }) => {
-    const { timeValue, errors } = _formatValue(value, DEFAULT_SETTINGS, {});
-    setTimeValue(timeValue);
+    formatTimeValue(value);
   };
 
   const handleClick = () => {
@@ -18,13 +33,22 @@ const Input = ({ open, value, setTimeValue, setOpen }) => {
   };
 
   return (
-    <input
-      className="ui-timepicker-input"
-      type="text"
-      value={value}
-      onBlur={handleBlur}
-      onChange={handleInput}
-      onClick={handleClick}/>
+    <div className='input-control'>
+      <input
+        className={`
+        ui-timepicker-input 
+        ${Object.values(err).length
+        && 'time-input-err'}`}
+        type="text"
+        value={value || ''}
+        onBlur={handleBlur}
+        onChange={handleInput}
+        onClick={handleClick}/>
+      {showErr && Object.values(err).map((err, i) =>
+        <span className={err} key={i}>
+          {err}
+        </span>)}
+    </div>
   );
 };
 

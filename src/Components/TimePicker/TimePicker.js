@@ -4,18 +4,22 @@ import Input from 'Components/Input/Input';
 import Wrapper from 'Components/Wrapper/Wrapper';
 import { DEFAULT_SETTINGS } from 'utils/defaults';
 import { _formatValue } from 'utils/main';
-import 'static/timepicker.css';
+import './timepicker.css';
 
 // const initialState = { ...DEFAULT_SETTINGS };
 // const reducer = (state, action) => {
 // };
 // const [settings, dispatch] = React.useReducer(reducer, initialState);
 
-const TimePicker = () => {
-  const [timeValue, setTimeValue] = React.useState(null);
+const TimePicker = ({ onChange, value = null }) => {
+  const [timeValue, setTimeValue] = React.useState(value);
   const [open, setOpen] = React.useState(false);
   const [showErr, setShowErr] = React.useState(false);
   const [err, setErr] = React.useState({});
+
+  React.useEffect(() => {
+    onChange && onChange(timeValue);
+  }, [timeValue]);
 
   const handleMaskClick = () => {
     setOpen(false);

@@ -1,4 +1,5 @@
 const path = require("path");
+const projectRootDir = path.resolve(__dirname);
 
 module.exports = {
   stories: ["../src/**/*.stories.js"],
@@ -19,6 +20,17 @@ module.exports = {
       }
     });
     config.resolve.extensions.push(".js", ".jsx");
+    config.resolve = {
+      extensions: ['.js', '.scss', '.html'],
+      modules: [
+        path.resolve(__dirname, '../'),
+        path.resolve(__dirname, '../src'),
+        path.resolve(__dirname, '../utils'),
+        // path.resolve(__dirname, '../src/static'),
+        // path.resolve(__dirname, '../src/Components'),
+        path.resolve(__dirname, '../node_modules'),
+      ]
+    };
 
     return config;
   }

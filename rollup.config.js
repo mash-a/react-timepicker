@@ -1,33 +1,59 @@
-import { terser } from "rollup-plugin-terser";
-import resolve from "@rollup/plugin-node-resolve";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import babel from '@rollup/plugin-babel';
-import { version, main, module } from './package.json';
+import { terser } from "rollup-plugin-terser";
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import postcss from 'rollup-plugin-postcss';
+import alias from '@rollup/plugin-alias';
+import cssbundle from 'rollup-plugin-css-bundle';
 
-const banner = `/*!
- * jquery-timepicker v${version} - A jQuery timepicker plugin inspired by Google Calendar. It supports both mouse and keyboard navigation.
- * Copyright (c) 2021 Jon Thornton - https://www.jonthornton.com/jquery-timepicker/
- * License: MIT
- */`;
+import { main, module } from './package.json';
+
+const path = require('path');
+const projectRootDir = path.resolve(__dirname);
+
 
 export default {
   input: 'src/index.js',
+  external: ['react', 'react-dom', /@babel\/runtime/],
   output: [
     {
       file: main,
       format: 'cjs',
-      sourcemap: true
+      sourcemap: true,
+      name: 'TimePicker',
     },
     {
       file: module,
       format: 'esm',
       sourcemap: true,
-    }
+      name: 'TimePicker',
+    },
   ],
   plugins: [
-    babel({ babelHelpers: 'bundled' }),
+    peerDepsExternal(),
+    alias({
+      entries: [
+        { find: 'src', replacement: path.resolve(projectRootDir, 'src') },
+        { find: 'utils', replacement: path.resolve(projectRootDir, 'utils') },
+        { find: "Components", replacement: path.resolve(projectRootDir, 'src/Components')}
+      ]
+    }),
+    babel({ 
+      exclude: 'node_modules/**', 
+      presets: ["@babel/preset-react", "@babel/preset-env"], 
+      babelHelpers: 'runtime', 
+      "plugins": [
+        "@babel/plugin-transform-runtime",
+      ] 
+    }),
+    postcss({
+      modules: true,
+      extensions: [".css"]
+    }),
+    cssbundle(),
     terser(),
-    resolve(),
+    nodeResolve({ extensions: [".js"] }),
     commonjs(),
-  ]
+  ],
 };

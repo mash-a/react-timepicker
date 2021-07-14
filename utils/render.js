@@ -1,9 +1,10 @@
-import { ONE_DAY } from "./constants";
-import { moduloSeconds } from "./rounding";
+/* eslint-disable */
+import { ONE_DAY } from './constants';
+import { moduloSeconds } from './rounding';
 
-function _getNoneOptionItems(settings) {
+function _getNoneOptionItems (settings) {
   if (!settings.noneOption) {
-    return []
+    return [];
   }
 
   const noneOptions = _getNoneOptionItemsHelper(settings.noneOption);
@@ -15,15 +16,15 @@ function _getNoneOptionItems(settings) {
   }
 }
 
-function _getNoneOptionItemsHelper(noneOption) {
+function _getNoneOptionItemsHelper (noneOption) {
   if (Array.isArray(noneOption)) {
     return noneOption.map(_getNoneOptionItemsHelper);
   }
 
   if (noneOption === true) {
     return {
-      'label': 'None',
-      'value': ''
+      label: 'None',
+      value: '',
     };
   }
 
@@ -32,12 +33,12 @@ function _getNoneOptionItemsHelper(noneOption) {
   }
 
   return {
-    'label': noneOption,
-    'value': ''
+    label: noneOption,
+    value: '',
   };
 }
 
-function _getDropdownTimes(tp) {
+function _getDropdownTimes (tp) {
   const settings = tp.settings;
 
   const start = settings.minTime() ?? 0;
@@ -61,8 +62,8 @@ function _getDropdownTimes(tp) {
   let drCur = 0;
   const output = [];
 
-  for (var i = start, j = 0; i <= end; j++, i += settings.step(j) * 60) {
-    var timeInt = i;
+  for (let i = start, j = 0; i <= end; j++, i += settings.step(j) * 60) {
+    const timeInt = i;
     const timeString = tp._int2time(timeInt);
 
     const className = timeInt % ONE_DAY < ONE_DAY / 2
@@ -70,10 +71,10 @@ function _getDropdownTimes(tp) {
           : 'ui-timepicker-pm';
 
     const item = {
-      'label': timeString,
-      'value': moduloSeconds(timeInt, settings),
-      'className': className
-    }
+      label: timeString,
+      value: moduloSeconds(timeInt, settings),
+      className: className,
+    };
 
     if (
       (settings.minTime() !== null || settings.durationTime() !== null) &&
@@ -100,13 +101,13 @@ function _getDropdownTimes(tp) {
   return output;
 }
 
-function _renderSelectItem(item) {
+function _renderSelectItem (item) {
   const el = document.createElement('option');
-  
+
   el.value = item.label;
 
   if (item.duration) {
-    el.appendChild(document.createTextNode(item.label + ' (' + item.duration + ')'));
+    el.appendChild(document.createTextNode(`${item.label} (${item.duration})`));
   } else {
     el.appendChild(document.createTextNode(item.label));
   }
@@ -118,11 +119,11 @@ function _renderSelectItem(item) {
   return el;
 }
 
-function _renderStandardItem(item) {
+function _renderStandardItem (item) {
   const el = document.createElement('li');
-  el.dataset['time'] = item.value;
+  el.dataset.time = item.value;
 
-  if (item.className){
+  if (item.className) {
     el.classList.add(item.className);
   }
   el.className = item.className;
@@ -130,7 +131,7 @@ function _renderStandardItem(item) {
 
   if (item.duration) {
     const durationEl = document.createElement('span');
-    durationEl.appendChild(document.createTextNode('('+item.duration+')'));
+    durationEl.appendChild(document.createTextNode(`(${item.duration})`));
     durationEl.classList.add('ui-timepicker-duration');
     el.appendChild(durationEl);
   }
@@ -142,7 +143,7 @@ function _renderStandardItem(item) {
   return el;
 }
 
-function _renderStandardList(items) {
+function _renderStandardList (items) {
   const list = document.createElement('ul');
   list.classList.add('ui-timepicker-list');
 
@@ -162,12 +163,12 @@ function _renderStandardList(items) {
   return wrapper;
 }
 
-function _renderSelectList(items, targetName) {
+function _renderSelectList (items, targetName) {
   const el = document.createElement('select');
   el.classList.add('ui-timepicker-select');
 
   if (targetName) {
-    el.name = 'ui-timepicker-' + targetName;
+    el.name = `ui-timepicker-${targetName}`;
   }
 
   for (const item of items) {
@@ -175,19 +176,19 @@ function _renderSelectList(items, targetName) {
     el.appendChild(itemEl);
   }
 
-  return el
+  return el;
 }
 
-function renderHtml(tp) {
+function renderHtml (tp) {
   const items = [].concat(
     _getNoneOptionItems(tp.settings),
     _getDropdownTimes(tp));
 
   let el;
   if (tp.settings.useSelect) {
-    el = _renderSelectList(items, tp.targetEl.name)
+    el = _renderSelectList(items, tp.targetEl.name);
   } else {
-    el = _renderStandardList(items)
+    el = _renderStandardList(items);
   }
 
   if (tp.settings.className) {
@@ -198,8 +199,8 @@ function renderHtml(tp) {
 
   if (tp.settings.showDuration
     && (tp.settings.minTime !== null || tp.settings.durationTime !== null)) {
-    el.classList.add("ui-timepicker-with-duration");
-    el.classList.add("ui-timepicker-step-" + tp.settings.step());
+    el.classList.add('ui-timepicker-with-duration');
+    el.classList.add(`ui-timepicker-step-${tp.settings.step()}`);
   }
 
   return el;

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { DEFAULT_SETTINGS, DEFAULT_LANG } from "./defaults";
 import { ONE_DAY } from "./constants";
 

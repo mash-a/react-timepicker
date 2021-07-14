@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Timepicker from "./timepicker/index.js";
 import renderHtml from "./timepicker/render.js";
 import { DEFAULT_SETTINGS } from "./timepicker/defaults.js";

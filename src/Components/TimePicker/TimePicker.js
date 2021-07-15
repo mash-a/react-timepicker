@@ -11,15 +11,27 @@ import './timepicker.css';
 // };
 // const [settings, dispatch] = React.useReducer(reducer, initialState);
 
-const TimePicker = ({ onChange, value = null }) => {
+const TimePicker = ({ onChange = () => {}, value = null }) => {
   const [timeValue, setTimeValue] = React.useState(value);
   const [open, setOpen] = React.useState(false);
   const [showErr, setShowErr] = React.useState(false);
   const [err, setErr] = React.useState({});
 
   React.useEffect(() => {
-    onChange && onChange(timeValue);
+    if (!timeValue) {
+      setErr({});
+      setShowErr(false);
+    }
   }, [timeValue]);
+
+  React.useEffect(() => {
+    if (!open) {
+      if (Object.values(err).length) {
+        timeValue ? setShowErr(true) : (setErr({}), setShowErr(false));
+      }
+
+    }
+  }, [open]);
 
   const handleMaskClick = () => {
     setOpen(false);
@@ -28,9 +40,14 @@ const TimePicker = ({ onChange, value = null }) => {
 
   const formatTimeValue = value => {
     const { timeValue, errors } = _formatValue(value, DEFAULT_SETTINGS, {});
-    !value && setErr(errors);
+    setErr(errors);
     // eslint-disable-next-line no-negated-condition
-    !timeValue ? setTimeValue(null) : setTimeValue(timeValue);
+    !timeValue ? handleSettingTime(null) : handleSettingTime(timeValue);
+  };
+
+  const handleSettingTime = value => {
+    onChange(value);
+    setTimeValue(value);
   };
 
   return (
@@ -46,7 +63,7 @@ const TimePicker = ({ onChange, value = null }) => {
         err={err}
         formatTimeValue={formatTimeValue}
         />
-      <div className={`ui-list-mask ${open && 'visible'}`} onClick={handleMaskClick}></div>
+      <div className={`ui-list-mask ${open ? 'visible' : ''}`} onClick={handleMaskClick}></div>
       {open && <Wrapper>
         <List setTimeValue={setTimeValue} timeValue={timeValue}/>
       </Wrapper>}

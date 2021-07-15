@@ -340,7 +340,7 @@ const _formatValue = (timeValue, settings, errors, origin, setTimeValue) => {
   // input validation?
   if (seconds == null) {
 
-    errors.timeFormatError = 'Please enter a valid time.';
+    errors.timeFormatError = 'Invalid time.';
     return formatted;
   }
 
@@ -373,7 +373,7 @@ const _formatValue = (timeValue, settings, errors, origin, setTimeValue) => {
   formatted.timeValue = _int2time(seconds, settings);
 
   if (rangeError) {
-    errors.timeRangeError = 'Please select a time within the time range.';
+    errors.timeRangeError = 'Invalid time range.';
   }
 
   return formatted;

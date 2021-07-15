@@ -3,22 +3,12 @@ import * as React from 'react';
 const Input = ({
   err,
   formatTimeValue,
-  setShowErr,
-  setErr,
   showErr,
   open,
   value,
   setTimeValue,
   setOpen,
 }) => {
-
-  React.useEffect(() => {
-    Object.values(err).length ? setShowErr(true) : setShowErr(false);
-  }, [err]);
-
-  React.useEffect(() => {
-    !value && setErr({});
-  }, [value]);
 
   const handleInput = ({ target: { value } }) => {
     setTimeValue(value);
@@ -33,10 +23,13 @@ const Input = ({
   };
 
   return (
-    <div className='input-control'>
+    <div className={`
+        input-control
+        ${Object.values(err).length
+        && ' error-visible'}`}>
       <input
         className={`
-        ui-timepicker-input 
+        ui-timepicker-input
         ${Object.values(err).length
         && 'time-input-err'}`}
         type="text"
@@ -45,7 +38,7 @@ const Input = ({
         onChange={handleInput}
         onClick={handleClick}/>
       {showErr && Object.values(err).map((err, i) =>
-        <span className={err} key={i}>
+        <span className="time-input-err-text" key={i}>
           {err}
         </span>)}
     </div>

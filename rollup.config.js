@@ -5,7 +5,6 @@ import { terser } from "rollup-plugin-terser";
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
 import alias from '@rollup/plugin-alias';
-import cssbundle from 'rollup-plugin-css-bundle';
 
 import { main, module } from './package.json';
 
@@ -39,6 +38,10 @@ export default {
         { find: "Components", replacement: path.resolve(projectRootDir, 'src/Components')}
       ]
     }),
+    postcss({
+      extensions: [".css"],
+    }),
+    nodeResolve({ extensions: [".js"] }),
     babel({ 
       exclude: 'node_modules/**', 
       presets: ["@babel/preset-react", "@babel/preset-env"], 
@@ -47,13 +50,7 @@ export default {
         "@babel/plugin-transform-runtime",
       ] 
     }),
-    postcss({
-      modules: true,
-      extensions: [".css"]
-    }),
-    cssbundle(),
-    terser(),
-    nodeResolve({ extensions: [".js"] }),
     commonjs(),
+    terser(),
   ],
 };

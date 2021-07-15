@@ -5,7 +5,6 @@ module.exports = {
     es6: true,
     node: true,
   },
-  parser: '@babel/eslint-parser',
   parserOptions: {
     ecmaVersion: 2017,
     sourceType: 'module',
@@ -15,15 +14,12 @@ module.exports = {
       jsx: true,
       experimentalObjectRestSpread: true,
     },
-    babelOptions: {
-      configFile: './.babelrc',
-    },
   },
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
   ],
-  plugins: ['@babel', 'react'],
+  plugins: ['react'],
   rules: {
     // Stylistic
     'arrow-body-style': ['error', 'as-needed'],

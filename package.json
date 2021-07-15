@@ -11,6 +11,7 @@
     "watch": "rollup -w --config rollup.config.js",
     "format": "prettier-eslint --write \"src/**/*.js\"",
     "test": "jest",
+    "prepare": "npm run build",
     "storybook": "start-storybook -p 6006",
     "storybook:export": "build-storybook"
   },
@@ -69,13 +70,9 @@
     "ui",
     "google calendar"
   ],
-  "homepage": "http://jonthornton.github.com/jquery-timepicker/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jonthornton/jquery-timepicker.git"
-  },
-  "bugs": {
-    "url": "https://github.com/jonthornton/jquery-timepicker/issues"
+    "url": "https://github.com/mash-a/react-timepicker.git"
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6"

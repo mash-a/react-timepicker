@@ -17,7 +17,7 @@
   border-radius: 2px;
   outline: 0;
   font-size: 14px;
-  position: relative;
+  position: absolute;
 }
 
 .ui-timepicker-wrapper.ui-timepicker-with-duration {
@@ -33,8 +33,6 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  z-index: 2;
-  position: relative;
 }
 
 .ui-timepicker-duration {
@@ -115,12 +113,12 @@ input[type="text"].ui-timepicker-input:focus {
 }
 
 .ui-list-mask {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 1;
+  z-index: 2000;
   display: none;
 }
 

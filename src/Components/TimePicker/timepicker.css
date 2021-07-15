@@ -101,15 +101,42 @@ input[type="text"].ui-timepicker-input:focus {
 }
 
 .input-control {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 8em;
+  position: relative;
+  display: inline-block;
 }
 
-.input-control span {
-  color: #cc0033;
-  font-size: 12px;
+.input-control .time-input-err-text {
+  visibility: hidden;
+  width: auto;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  margin-bottom: 4px;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.error-visible .time-input-err-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.input-control .time-input-err-text::after {
+  content: " ";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
 }
 
 .ui-list-mask {

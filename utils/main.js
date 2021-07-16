@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { DEFAULT_LANG } from './defaults';
 import { ONE_DAY } from './constants';
-import { moduloSeconds } from './rounding';
+import { moduloSeconds, roundingFunction } from './rounding';
 
 const anytime2int = (input, settings) => {
   if (typeof input === 'number') {
@@ -334,7 +334,6 @@ const _formatValue = (timeValue, settings, errors, origin) => {
   if (!timeValue) return formatted;
 
   let seconds = anytime2int(timeValue, settings);
-  console.log({ timeValue, seconds });
 
   // input validation?
   if (seconds == null) {
@@ -438,11 +437,36 @@ const _getDropdownTimes = settings => {
   return output;
 };
 
+const _findOption = (value, settings, timeOptions) => {
+  // check if there is a value in the first place
+  // get the value
+  // round the value using the provided function
+  // setRoundedValue function that will only be used to display the selected li
+  // if the parsed new value isNaN return
+  // if the newValue is equal to the parsed value according to timeOptions.value
+  // then setRoundedValue
+  const seconds = anytime2int(value, settings);
+  if (!seconds && seconds !== 0) {
+    return;
+  }
+  const roundedSeconds = roundingFunction(seconds, settings);
+
+  const filtered = timeOptions.filter(timeOption => {
+    const parsed = parseInt(timeOption.value, 10);
+    if (parsed === roundedSeconds) {
+      return parsed;
+    }
+  });
+  const [option] = filtered;
+  return option;
+};
+
 export {
   anytime2int,
-  _int2duration,
-  _formatValue,
   parseSettings,
-  _roundAndFormatTime,
+  _findOption,
+  _formatValue,
   _getDropdownTimes,
+  _int2duration,
+  _roundAndFormatTime,
 };

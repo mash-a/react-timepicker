@@ -1,7 +1,7 @@
-import { ONE_DAY } from "./constants";
+import { ONE_DAY } from './constants';
 
 const roundingFunction = (seconds, settings) => {
-  if (seconds === null) {
+  if (seconds == null) {
     return null;
   }
 
@@ -21,12 +21,12 @@ const roundingFunction = (seconds, settings) => {
   }
 };
 
-function moduloSeconds(seconds, settings) {
-  if (seconds == ONE_DAY && settings.show2400) {
+const moduloSeconds = (seconds, settings) => {
+  if (seconds === ONE_DAY && settings.show2400) {
     return seconds;
   }
 
   return seconds % ONE_DAY;
-}
+};
 
 export { roundingFunction, moduloSeconds };

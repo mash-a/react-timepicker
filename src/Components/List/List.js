@@ -1,46 +1,23 @@
 import * as React from 'react';
 import ListItem from '../ListItem/ListItem';
-import { _getDropdownTimes } from 'utils/main';
+import { _getDropdownTimes, _findOption } from 'utils/main';
 
 const List = ({ setTimeValue, timeValue, settings }) => {
   const [timeOptions, setTimeOptions] = React.useState([]);
-  // const findRow = (value, settings) => {
-  // // check if there is a value in the first place
-  // // perhaps this function should be in List component?
-  // // get the value
-  // // round the value using the provided function
-  // // TODO setup settings state so that it can be customized
-  // // create setSelected function that will only be used to display the selected li
-  // // if the parsed new value isNaN return
-  // // if the newValue is equal to the parsed value according to obj.dataset.time?
-  // // is dataset an attribute on the li?
-  // // then setSelected
+  const [roundedValue, setRoundedValue] = React.useState(null);
 
-  //   if (!value && value !== 0) {
-  //     return false;
-  //   }
-
-  //   let out = false;
-  //   var value = roundingFunction(value, settings);
-
-  //   list.find('li').each((i, obj) => {
-  //     const parsed = parseInt(obj.dataset.time, 10);
-
-  //     if (isNaN(parsed)) {
-  //       return;
-  //     }
-
-  //     if (parsed == value) {
-  //       out = obj;
-  //       return false;
-  //     }
-  //   });
-
-  //   return out;
-  // };
+  // Dropdown Options
   React.useEffect(() => {
-    setTimeOptions(_getDropdownTimes(settings));
+    const options = _getDropdownTimes(settings);
+    setTimeOptions(options);
   }, []);
+
+  React.useEffect(() => {
+    const roundedOption = _findOption(timeValue, settings, timeOptions);
+    if (roundedOption) {
+      setRoundedValue(roundedOption.value);
+    }
+  }, [timeValue, timeOptions]);
 
   return (
     <ul className="ui-timepicker-list">
@@ -48,9 +25,9 @@ const List = ({ setTimeValue, timeValue, settings }) => {
         <ListItem
           key={value}
           meridiemClass={className}
-          selectedClass={`${timeValue === label && 'ui-timepicker-selected'}`}
           label={label}
           value={value}
+          roundedValue={roundedValue}
           setTimeValue={setTimeValue}>
           {label}
         </ListItem>)}

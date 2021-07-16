@@ -31,20 +31,13 @@ const TimePicker = props => {
   }, []);
 
   React.useEffect(() => {
-    if (!timeValue) {
+    if (!timeValue && !open) {
       setErr({});
       setShowErr(false);
+    } else if (timeValue && !open && Object.values(err).length) {
+      setShowErr(true);
     }
-  }, [timeValue]);
-
-  React.useEffect(() => {
-    if (!open) {
-      if (Object.values(err).length) {
-        timeValue ? setShowErr(true) : (setErr({}), setShowErr(false));
-      }
-
-    }
-  }, [open]);
+  }, [timeValue, open]);
 
   const handleMaskClick = () => {
     setOpen(false);

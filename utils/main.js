@@ -316,7 +316,7 @@ const _int2time = (timeInt, settings) => {
 };
 
 // origin refers to whether or not the input is a select or if it is text input
-const _formatValue = (timeValue, settings, errors, origin, setTimeValue) => {
+const _formatValue = (timeValue, settings, errors, origin) => {
   // do this in timepicker component
   // handleFormatValue
   // setTimeValue
@@ -330,14 +330,14 @@ const _formatValue = (timeValue, settings, errors, origin, setTimeValue) => {
   // if (_isFocused(targetEl) && (!e || e.type !== 'change')) {
   //   return;
   // }
-
   const formatted = { errors, timeValue, origin };
+  if (!timeValue) return formatted;
+
   let seconds = anytime2int(timeValue, settings);
   console.log({ timeValue, seconds });
 
   // input validation?
   if (seconds == null) {
-
     errors.timeFormatError = 'Invalid time.';
     return formatted;
   }

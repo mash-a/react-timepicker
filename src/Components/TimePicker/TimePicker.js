@@ -3,19 +3,32 @@ import List from 'Components/List/List';
 import Input from 'Components/Input/Input';
 import Wrapper from 'Components/Wrapper/Wrapper';
 import { DEFAULT_SETTINGS } from 'utils/defaults';
-import { _formatValue } from 'utils/main';
+import { _formatValue, parseSettings } from 'utils/main';
 import './timepicker.css';
 
-// const initialState = { ...DEFAULT_SETTINGS };
-// const reducer = (state, action) => {
-// };
-// const [settings, dispatch] = React.useReducer(reducer, initialState);
+const initialState = DEFAULT_SETTINGS;
+const reducer = (state, { type, payload }) => {
+  switch (type) {
+    case 'init':
+      return { settings: { ...state.settings, ...payload } };
+    default:
+      throw new Error();
+  }
+};
 
-const TimePicker = ({ onChange = () => {}, value = null }) => {
+
+const TimePicker = props => {
+  const { onChange = () => {}, value = null } = props;
+  const [{ settings }, dispatch] = React.useReducer(reducer, initialState);
+
   const [timeValue, setTimeValue] = React.useState(value);
   const [open, setOpen] = React.useState(false);
   const [showErr, setShowErr] = React.useState(false);
   const [err, setErr] = React.useState({});
+
+  React.useEffect(() => {
+    dispatch({ type: 'init', payload: parseSettings(DEFAULT_SETTINGS) });
+  }, []);
 
   React.useEffect(() => {
     if (!timeValue) {
@@ -65,7 +78,10 @@ const TimePicker = ({ onChange = () => {}, value = null }) => {
         />
       <div className={`ui-list-mask ${open ? 'visible' : ''}`} onClick={handleMaskClick}></div>
       {open && <Wrapper>
-        <List setTimeValue={setTimeValue} timeValue={timeValue}/>
+        <List
+          setTimeValue={setTimeValue}
+          timeValue={timeValue}
+          settings={settings}/>
       </Wrapper>}
     </div>
   );

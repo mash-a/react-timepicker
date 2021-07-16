@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-const ListItem = ({ meridiemClass, selectedClass, children, setTimeValue, value }) => {
+const ListItem = ({ meridiemClass, selectedClass, children, setTimeValue, value, label }) => {
   const handleClick = () => {
-    setTimeValue(value);
+    setTimeValue(label);
   };
 
   return (

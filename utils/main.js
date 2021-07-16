@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { DEFAULT_LANG } from './defaults';
 import { ONE_DAY } from './constants';
+import { moduloSeconds } from './rounding';
 
 const anytime2int = (input, settings) => {
   if (typeof input === 'number') {
@@ -261,7 +262,6 @@ const _int2time = (timeInt, settings) => {
   if (typeof settings.timeFormat === 'function') {
     return settings.timeFormat(time);
   }
-  // console.log({ time });
 
   const formatTime = {
     a: () => time.getHours() > 11
@@ -311,8 +311,6 @@ const _int2time = (timeInt, settings) => {
       ? output + formatTime[code]()
       : output + code
   , '');
-
-  console.log({ formattedOutput });
 
   return formattedOutput;
 };
@@ -379,10 +377,72 @@ const _formatValue = (timeValue, settings, errors, origin, setTimeValue) => {
   return formatted;
 };
 
+const _getDropdownTimes = settings => {
+  const start = settings?.minTime() ?? 0;
+  let end = settings?.maxTime() ?? start + ONE_DAY - 1;
+
+  if (end < start) {
+    // make sure the end time is greater than start time, otherwise there will be no list to show
+    end += ONE_DAY;
+  }
+
+  if (
+    end === ONE_DAY - 1 &&
+    typeof settings.timeFormat === 'string' &&
+    settings.show2400
+  ) {
+    // show a 24:00 option when using military time
+    end = ONE_DAY;
+  }
+
+  const dr = settings.disableTimeRanges;
+  let drCur = 0;
+  const output = [];
+
+  for (let i = start, j = 0; i <= end; j++, i += settings.step(j) * 60) {
+    const timeInt = i;
+    const timeString = _int2time(timeInt, settings);
+
+    const className = timeInt % ONE_DAY < ONE_DAY / 2
+          ? 'ui-timepicker-am'
+          : 'ui-timepicker-pm';
+
+    const item = {
+      label: timeString,
+      value: moduloSeconds(timeInt, settings),
+      className: className,
+    };
+
+    if (
+      (settings.minTime() != null || settings.durationTime() != null) &&
+      settings.showDuration
+    ) {
+      const durStart = settings.durationTime() ?? settings.minTime();
+      const durationString = _int2duration(i - durStart, settings.step());
+      item.duration = durationString;
+    }
+
+    if (drCur < dr.length) {
+      if (timeInt >= dr[drCur][1]) {
+        drCur += 1;
+      }
+
+      if (dr[drCur] && timeInt >= dr[drCur][0] && timeInt < dr[drCur][1]) {
+        item.disabled = true;
+      }
+    }
+
+    output.push(item);
+  }
+
+  return output;
+};
+
 export {
   anytime2int,
   _int2duration,
   _formatValue,
   parseSettings,
   _roundAndFormatTime,
+  _getDropdownTimes,
 };

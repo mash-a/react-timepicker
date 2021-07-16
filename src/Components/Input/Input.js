@@ -19,7 +19,7 @@ const Input = ({
   };
 
   const handleClick = () => {
-    setOpen(!open);
+    !open && setOpen(true);
   };
 
   return (

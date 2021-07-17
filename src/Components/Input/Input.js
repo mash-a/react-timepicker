@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { _keyPressDown } from 'utils/keyEvents';
 
 const Input = ({
   err,
@@ -22,6 +23,10 @@ const Input = ({
     !open && setOpen(true);
   };
 
+  const handleKeyDown = e => {
+    _keyPressDown(e, value, setOpen, formatTimeValue);
+  };
+
   return (
     <div className={`
         input-control
@@ -36,7 +41,9 @@ const Input = ({
         value={value || ''}
         onBlur={handleBlur}
         onChange={handleInput}
-        onClick={handleClick}/>
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        />
       {showErr && Object.values(err).map((err, i) =>
         <span className="time-input-err-text" key={i}>
           {err}

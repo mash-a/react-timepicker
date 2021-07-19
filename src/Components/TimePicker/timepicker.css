@@ -1,23 +1,90 @@
+.select-timepicker, .input-control input[type="text"].ui-timepicker-input {
+  position: relative;
+  width: 8rem;
+  /* height: 2rem; */
+  font-size: 14px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 0.4rem;
+}
+
+.tester { 
+  left: 500px;
+  position: relative;
+}
+
+.input-control {
+  position: absolute;
+  /* display: inline-block; */
+  z-index: 2001;
+  display: none;
+  top: 0;
+  left: 0;
+}
+
+@media (hover: hover) {
+  .input-control {
+    display: inline-block;
+  }
+  .select-timepicker:focus + .input-control {
+    display: none;
+  }
+}
+
+.select-timepicker {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-position-x: 100%;
+  background-position-y: 0.8rem;
+  padding: 0rem 0.8rem;
+}
+
+.select-timepicker:focus {
+  outline: none;
+  box-shadow: white 0 0 0 0.2rem, #ff821f 0 0 0 0.4rem;
+}
+
+.ui-timepicker-input {
+  /* border: none;
+  outline: none; */
+  color: #3c4043;
+  line-height: 20px;
+  font-size: 14px;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-timepicker {
+  position: relative;
+}
+
+.select-timepicker, .ui-timepicker-wrapper {
+  width: 8rem;
+}
+
 .ui-timepicker-wrapper {
   overflow-y: auto;
   max-height: 150px;
-  width: 8em;
+  /* height: 4em; */
+  width: 8rem;
   background: #fff;
   border: 1px solid #ddd;
-  outline: none;
   z-index: 10052;
-  margin: 0;
   box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 14%),
     0px 1px 10px 0px rgb(0 0 0 / 12%), 0px 2px 4px -1px rgb(0 0 0 / 20%);
   -moz-box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 14%),
     0px 1px 10px 0px rgb(0 0 0 / 12%), 0px 2px 4px -1px rgb(0 0 0 / 20%);
   -webkit-box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 14%),
     0px 1px 10px 0px rgb(0 0 0 / 12%), 0px 2px 4px -1px rgb(0 0 0 / 20%);
-  margin: 3px 0;
+  margin: 6px 0;
   border-radius: 2px;
   outline: 0;
   font-size: 14px;
-  position: relative;
+  position: fixed;
+  padding: 0.8rem 0;
+  z-index: 2002;
 }
 
 .ui-timepicker-wrapper.ui-timepicker-with-duration {
@@ -82,28 +149,9 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   background: #f2f2f2;
 }
 
-.ui-timepicker-input {
-  border: none;
-  outline: none;
-  color: #3c4043;
-  line-height: 20px;
-  font-size: 14px;
-}
-
-input[type="text"].ui-timepicker-input:hover,
-input[type="text"].ui-timepicker-input:focus {
-  background: #f2f2f2d3;
-}
-
 .time-input-err {
   border: 1px solid #cc0033;
   outline: none;
-}
-
-.input-control {
-  position: relative;
-  display: inline-block;
-  z-index: 2001;
 }
 
 .input-control .time-input-err-text {

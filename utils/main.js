@@ -237,7 +237,6 @@ const _int2duration = (seconds, step, settings) => {
 };
 
 const _roundAndFormatTime = (seconds, settings) => {
-  // console.log('_roundAndFormatTime')
   const s = settings.roundingFunction(seconds, settings);
   if (s != null) {
     return _int2time(s, settings);
@@ -346,6 +345,8 @@ const _formatValue = (timeValue, settings, errors, origin) => {
   if (
     settings.minTime != null &&
     settings.maxTime != null &&
+    settings.minTime() != null &&
+    settings.maxTime() != null &&
     (seconds < settings.minTime() || seconds > settings.maxTime())
   ) {
     rangeError = true;
@@ -398,6 +399,7 @@ const _getDropdownTimes = settings => {
   let drCur = 0;
   const output = [];
 
+  // eslint-disable-next-line no-plusplus
   for (let i = start, j = 0; i <= end; j++, i += settings.step(j) * 60) {
     const timeInt = i;
     const timeString = _int2time(timeInt, settings);

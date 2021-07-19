@@ -15,10 +15,6 @@ const Input = ({
     setTimeValue(value);
   };
 
-  const handleBlur = ({ target: { value } }) => {
-    formatTimeValue(value);
-  };
-
   const handleClick = () => {
     !open && setOpen(true);
   };
@@ -39,7 +35,6 @@ const Input = ({
         && 'time-input-err'}`}
         type="text"
         value={value || ''}
-        onBlur={handleBlur}
         onChange={handleInput}
         onClick={handleClick}
         onKeyDown={handleKeyDown}

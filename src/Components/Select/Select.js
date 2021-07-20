@@ -13,6 +13,7 @@ const Select = props => {
       className="select-timepicker"
       value={roundedValue || ''}
       onChange={handleSelectChange}
+      tabIndex="-1"
     >
       {timeOptions.map(({ label, value }) =>
         <option key={value} value={value}>{label}</option>,

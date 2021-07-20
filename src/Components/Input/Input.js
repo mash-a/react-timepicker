@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { _keyPressDown } from 'utils/keyEvents';
+import { _inputKeyPressDown } from 'utils/keyEvents';
 
 const Input = ({
   err,
@@ -9,6 +9,7 @@ const Input = ({
   value,
   setTimeValue,
   setOpen,
+  setFocus,
 }) => {
 
   const handleInput = ({ target: { value } }) => {
@@ -20,7 +21,7 @@ const Input = ({
   };
 
   const handleKeyDown = e => {
-    _keyPressDown(e, value, setOpen, formatTimeValue);
+    _inputKeyPressDown(e, value, setOpen, formatTimeValue, setFocus);
   };
 
   return (

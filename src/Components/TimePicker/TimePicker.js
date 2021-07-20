@@ -27,9 +27,10 @@ const TimePicker = props => {
   const [{ settings }, dispatch] = React.useReducer(reducer, initialState);
 
   const [err, setErr] = React.useState({});
+  const [focus, setFocus] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [roundedValue, setRoundedValue] = React.useState(null);
-  const [optionIdx, setOptionIdx] = React.useState(undefined);
+  const [optionIdx, setOptionIdx] = React.useState(0);
   const [showErr, setShowErr] = React.useState(false);
   const [timeOptions, setTimeOptions] = React.useState([]);
   const [timeValue, setTimeValue] = React.useState(value);
@@ -50,6 +51,7 @@ const TimePicker = props => {
     const roundedOption = _findOption(timeValue, settings, timeOptions);
     if (roundedOption) {
       setRoundedValue(roundedOption.value);
+      setOptionIdx(roundedOption.optionIdx);
     }
   }, [timeValue, timeOptions]);
 
@@ -99,14 +101,26 @@ const TimePicker = props => {
           setErr={setErr}
           err={err}
           formatTimeValue={formatTimeValue}
+          setFocus={setFocus}
         />
-        {open && <Wrapper>
-          <List
-            roundedValue={roundedValue}
-            setTimeValue={setTimeValue}
+        {open &&
+          <Wrapper
+            lastIndex={timeOptions.length - 1}
+            optionIdx={optionIdx}
             setOptionIdx={setOptionIdx}
             timeOptions={timeOptions}
-          />
+            setTimeValue={setTimeValue}
+            setOpen={setOpen}
+          >
+            <List
+              optionIdx={optionIdx}
+              roundedValue={roundedValue}
+              setTimeValue={setTimeValue}
+              setOptionIdx={setOptionIdx}
+              timeOptions={timeOptions}
+              focus={focus}
+              setFocus={setFocus}
+            />
         </Wrapper>}
       </div>
     </div>

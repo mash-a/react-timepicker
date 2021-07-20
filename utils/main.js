@@ -453,12 +453,14 @@ const _findOption = (value, settings, timeOptions) => {
   }
   const roundedSeconds = roundingFunction(seconds, settings);
 
-  const filtered = timeOptions.filter(timeOption => {
+  const filtered = timeOptions.filter((timeOption, idx) => {
     const parsed = parseInt(timeOption.value, 10);
     if (parsed === roundedSeconds) {
-      return parsed;
+      timeOption.optionIdx = idx;
+      return timeOption;
     }
   });
+
   const [option] = filtered;
   return option;
 };

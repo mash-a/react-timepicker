@@ -132,6 +132,10 @@ li.ui-timepicker-selected,
   cursor: default;
 }
 
+.ui-timepicker-list li {
+  outline: none;
+}
+
 li.ui-timepicker-selected .ui-timepicker-duration,
 .ui-timepicker-list li:hover .ui-timepicker-duration {
   color: #ccc;

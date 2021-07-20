@@ -65,6 +65,7 @@ const ListItem = ({
       className={`${meridiemClass} ${selected}`}
       onClick={handleClick}
       tabIndex="-1"
+      role="option"
     >
       {children}
     </li>

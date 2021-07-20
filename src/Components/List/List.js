@@ -10,7 +10,7 @@ const List = ({
   focus,
   setFocus,
 }) =>
-  <ul className="ui-timepicker-list">
+  <ul className="ui-timepicker-list" role="listbox">
     {timeOptions.map(({ label, value, className }, idx) =>
       <ListItem
         key={value}

@@ -48,7 +48,7 @@ const TimePicker = props => {
   }, [settings]);
 
   React.useEffect(() => {
-    const roundedOption = _findOption(timeValue, settings, timeOptions);
+    const roundedOption = settings ? _findOption(timeValue, settings, timeOptions) : null;
     if (roundedOption) {
       setRoundedValue(roundedOption.value);
       setOptionIdx(roundedOption.optionIdx);

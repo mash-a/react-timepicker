@@ -99,13 +99,13 @@ const time2int = (timeString, settings) => {
   return timeInt;
 };
 
-const intStringDateOrFunc2func = input => {
+const intStringDateOrFunc2func = (input, settings) => {
   if (input == null) {
     return () => null;
   } else if (typeof input === 'function') {
-    return () => anytime2int(input());
+    return () => anytime2int(input(), settings);
   } else {
-    return () => anytime2int(input);
+    return () => anytime2int(input, settings);
   }
 };
 
@@ -119,15 +119,17 @@ const parseSettings = (settings, defaultLang) => {
   // settings = settings;
 
   if (parsedSettings.listWidth) {
-    parsedSettings.listWidth = anytime2int(parsedSettings.listWidth);
+    parsedSettings.listWidth = anytime2int(parsedSettings.listWidth, parsedSettings);
   }
 
-  parsedSettings.minTime = intStringDateOrFunc2func(parsedSettings.minTime);
-  parsedSettings.maxTime = intStringDateOrFunc2func(parsedSettings.maxTime);
-  parsedSettings.durationTime = intStringDateOrFunc2func(parsedSettings.durationTime);
+  parsedSettings.minTime = intStringDateOrFunc2func(parsedSettings.minTime, parsedSettings);
+  parsedSettings.maxTime = intStringDateOrFunc2func(parsedSettings.maxTime, parsedSettings);
+  // eslint-disable-next-line max-len
+  parsedSettings.durationTime = intStringDateOrFunc2func(parsedSettings.durationTime, parsedSettings);
 
   if (parsedSettings.scrollDefault) {
-    parsedSettings.scrollDefault = intStringDateOrFunc2func(parsedSettings.scrollDefault);
+    // eslint-disable-next-line max-len
+    parsedSettings.scrollDefault = intStringDateOrFunc2func(parsedSettings.scrollDefault, parsedSettings);
   } else {
     parsedSettings.scrollDefault = parsedSettings.minTime;
   }
@@ -161,8 +163,8 @@ const parseSettings = (settings, defaultLang) => {
     // convert string times to integers
     for (const i in parsedSettings.disableTimeRanges) {
       parsedSettings.disableTimeRanges[i] = [
-        anytime2int(parsedSettings.disableTimeRanges[i][0]),
-        anytime2int(parsedSettings.disableTimeRanges[i][1]),
+        anytime2int(parsedSettings.disableTimeRanges[i][0], parsedSettings),
+        anytime2int(parsedSettings.disableTimeRanges[i][1], parsedSettings),
       ];
     }
 

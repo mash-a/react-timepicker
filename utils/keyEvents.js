@@ -56,6 +56,7 @@ const _wrapperKeyDown = (
       break;
     }
     case 27: { // esc
+      setOptionIdx(0);
       setOpen(false);
     }
   }

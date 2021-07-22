@@ -9,6 +9,8 @@ const Wrapper = ({
   timeOptions,
   setTimeValue,
   setOpen,
+  setSelectedOption,
+  selectedOption,
 }) => {
   const keyDown = e =>
     _wrapperKeyDown(
@@ -19,6 +21,8 @@ const Wrapper = ({
       setTimeValue,
       lastIndex,
       setOpen,
+      setSelectedOption,
+      selectedOption,
     );
 
   return (

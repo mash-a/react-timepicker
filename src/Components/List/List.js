@@ -9,23 +9,44 @@ const List = ({
   setOptionIdx,
   focus,
   setFocus,
-}) =>
-  <ul className="ui-timepicker-list" role="listbox">
-    {timeOptions.map(({ label, value, className }, idx) =>
-      <ListItem
-        key={value}
-        meridiemClass={className}
-        optionIdx={optionIdx}
-        label={label}
-        value={value}
-        roundedValue={roundedValue}
-        setTimeValue={setTimeValue}
-        setOptionIdx={setOptionIdx}
-        idx={idx}
-        focus={focus}
-        setFocus={setFocus}>
-        {label}
-      </ListItem>)}
-  </ul>;
+}) => {
+  const refs = timeOptions.reduce((acc, { index }) => {
+    acc[index] = React.useRef();
+    return acc;
+  }, {});
+
+  const listRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (optionIdx) {
+      refs[optionIdx].current.scrollIntoView({
+        block: 'center',
+        inline: 'start',
+      });
+    }
+  }, []);
+
+  return (
+    <ul className="ui-timepicker-list" role="listbox" ref={listRef}>
+      {timeOptions.map(({ label, value, className }, idx) =>
+        <ListItem
+          ref={refs[idx]}
+          key={value}
+          meridiemClass={className}
+          optionIdx={optionIdx}
+          label={label}
+          value={value}
+          roundedValue={roundedValue}
+          setTimeValue={setTimeValue}
+          setOptionIdx={setOptionIdx}
+          idx={idx}
+          focus={focus}
+          setFocus={setFocus}>
+          {label}
+        </ListItem>)}
+    </ul>
+  );
+};
+
 
 export default List;

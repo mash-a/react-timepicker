@@ -13,8 +13,7 @@ const ListItem = ({
   value,
   focus,
   setFocus,
-}) => {
-  const ref = React.useRef(null);
+}, ref) => {
   const [selected, setSelected] = React.useState('');
 
   React.useEffect(() => {
@@ -22,17 +21,17 @@ const ListItem = ({
       ref.current.focus();
       setFocus(false);
     }
-  }, [focus]);
+  }, [focus, optionIdx, idx]);
 
   React.useEffect(() => {
     if (roundedValue === value) {
       setSelected(classNames.selected);
       setTimeout(() => {
-        ref.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-        inline: 'start',
-      });
+         ref.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'start',
+        });
       }, 0);
     } else {
       setSelected('');
@@ -42,13 +41,11 @@ const ListItem = ({
   React.useEffect(() => {
     if (optionIdx === idx) {
       setSelected(classNames.selected);
-      setTimeout(() => {
-        ref.current.scrollIntoView({
+      ref.current.scrollIntoView({
         behavior: 'smooth',
         block: 'center',
         inline: 'start',
       });
-      }, 0);
     } else {
       setSelected('');
     }
@@ -72,4 +69,4 @@ const ListItem = ({
   );
 };
 
-export default ListItem;
+export default React.forwardRef(ListItem);

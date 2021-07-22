@@ -23,13 +23,14 @@ const reducer = (state, { type, payload }) => {
 };
 
 const TimePicker = props => {
-  const { onChange = () => {}, value = null } = props;
+  const { onChange = () => {}, value = null, enableSelect = false } = props;
   const [{ settings }, dispatch] = React.useReducer(reducer, initialState);
 
   const [err, setErr] = React.useState({});
   const [focus, setFocus] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [roundedValue, setRoundedValue] = React.useState(null);
+  const [selectedOption, setSelectedOption] = React.useState(null);
   const [optionIdx, setOptionIdx] = React.useState(0);
   const [showErr, setShowErr] = React.useState(false);
   const [timeOptions, setTimeOptions] = React.useState([]);
@@ -48,12 +49,21 @@ const TimePicker = props => {
   }, [settings]);
 
   React.useEffect(() => {
-    const roundedOption = settings ? _findOption(timeValue, settings, timeOptions) : null;
-    if (roundedOption) {
-      setRoundedValue(roundedOption.value);
-      setOptionIdx(roundedOption.optionIdx);
+    if (settings && timeOptions.length) {
+      const roundedOption = timeValue ? _findOption(timeValue, settings, timeOptions) :
+      _findOption(`${new Date().getHours()}:${new Date().getMinutes()}`, settings, timeOptions);
+      if (roundedOption) {
+        setRoundedValue(roundedOption.value);
+        setOptionIdx(roundedOption.index);
+        setSelectedOption(roundedOption);
+      } else {
+        setSelectedOption(timeOptions[0]);
+        setOptionIdx(0);
+        setRoundedValue(timeOptions[0].value);
+      }
+
     }
-  }, [timeValue, timeOptions]);
+  }, [timeValue, timeOptions, settings, open]);
 
   React.useEffect(() => {
     if (!timeValue && !open) {
@@ -90,6 +100,7 @@ const TimePicker = props => {
           settings={settings}
           timeOptions={timeOptions}
           roundedValue={roundedValue}
+          enableSelect={enableSelect}
         />
         <Input
           open={open}
@@ -109,6 +120,8 @@ const TimePicker = props => {
             optionIdx={optionIdx}
             setOptionIdx={setOptionIdx}
             timeOptions={timeOptions}
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
             setTimeValue={setTimeValue}
             setOpen={setOpen}
           >
@@ -120,6 +133,7 @@ const TimePicker = props => {
               timeOptions={timeOptions}
               focus={focus}
               setFocus={setFocus}
+              selectedOption={selectedOption}
             />
         </Wrapper>}
       </div>

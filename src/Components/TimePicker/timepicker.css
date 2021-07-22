@@ -1,22 +1,20 @@
-.select-timepicker, .input-control input[type="text"].ui-timepicker-input {
+.select-timepicker,
+.input-control input[type="text"].ui-timepicker-input {
   position: relative;
-  width: 8rem;
-  /* height: 2rem; */
+  width: 7rem !important;
   font-size: 14px;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 0.4rem;
 }
 
-.tester { 
+.tester {
   left: 500px;
   position: relative;
 }
 
 .input-control {
   position: absolute;
-  /* display: inline-block; */
-  z-index: 2001;
   display: none;
   top: 0;
   left: 0;
@@ -25,9 +23,6 @@
 @media (hover: hover) {
   .input-control {
     display: inline-block;
-  }
-  .select-timepicker:focus + .input-control {
-    display: none;
   }
 }
 
@@ -45,8 +40,6 @@
 }
 
 .ui-timepicker-input {
-  /* border: none;
-  outline: none; */
   color: #3c4043;
   line-height: 20px;
   font-size: 14px;
@@ -60,18 +53,13 @@
   position: relative;
 }
 
-.select-timepicker, .ui-timepicker-wrapper {
-  width: 8rem;
-}
-
 .ui-timepicker-wrapper {
   overflow-y: auto;
   max-height: 150px;
   /* height: 4em; */
-  width: 8rem;
+  width: 7rem;
   background: #fff;
   border: 1px solid #ddd;
-  z-index: 10052;
   box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 14%),
     0px 1px 10px 0px rgb(0 0 0 / 12%), 0px 2px 4px -1px rgb(0 0 0 / 20%);
   -moz-box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 14%),
@@ -84,7 +72,7 @@
   font-size: 14px;
   position: fixed;
   padding: 0.8rem 0;
-  z-index: 2002;
+  z-index: 10;
 }
 
 .ui-timepicker-wrapper.ui-timepicker-with-duration {
@@ -198,11 +186,14 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 2000;
+  z-index: 9;
   display: none;
 }
 
 .visible {
   display: block;
-  z-index: 1;
 }
+
+/* .hide-me {
+  display: none;
+} */

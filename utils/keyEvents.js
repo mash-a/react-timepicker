@@ -23,6 +23,29 @@ const _inputKeyPressDown = (e, value, setOpen, formatTimeValue, setFocus) => {
       setOpen(true);
       setFocus(true);
       break;
+    case 96: // numpad numerals
+    case 97:
+    case 98:
+    case 99:
+    case 100:
+    case 101:
+    case 102:
+    case 103:
+    case 104:
+    case 105:
+    case 48: // numerals
+    case 49:
+    case 50:
+    case 51:
+    case 52:
+    case 53:
+    case 54:
+    case 55:
+    case 56:
+    case 57: {
+      setOpen(true);
+      break;
+    }
     default:
       return true;
   }
@@ -36,6 +59,8 @@ const _wrapperKeyDown = (
   setTimeValue,
   lastIndex,
   setOpen,
+  setSelectedOption,
+  selectedOption,
 // eslint-disable-next-line max-params
 ) => {
   switch (e.keyCode) {
@@ -56,7 +81,7 @@ const _wrapperKeyDown = (
       break;
     }
     case 27: { // esc
-      setOptionIdx(0);
+      setOptionIdx(selectedOption.index);
       setOpen(false);
     }
   }

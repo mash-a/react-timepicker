@@ -437,8 +437,8 @@ const _getDropdownTimes = settings => {
 
     output.push(item);
   }
-
-  return output;
+  const outputIndexed = output.map((item, idx) => ({ ...item, index: idx }));
+  return outputIndexed;
 };
 
 const _findOption = (value, settings, timeOptions) => {
@@ -455,10 +455,9 @@ const _findOption = (value, settings, timeOptions) => {
   }
   const roundedSeconds = roundingFunction(seconds, settings);
 
-  const filtered = timeOptions.filter((timeOption, idx) => {
+  const filtered = timeOptions.filter(timeOption => {
     const parsed = parseInt(timeOption.value, 10);
     if (parsed === roundedSeconds) {
-      timeOption.optionIdx = idx;
       return timeOption;
     }
   });

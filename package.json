@@ -1,11 +1,14 @@
 {
-  "name": "react-timepicker",
+  "name": "timepicker-react",
   "version": "1.13.18",
-  "title": "react-timepicker",
-  "author": {
-    "name": "Jon Thornton",
-    "url": "https://github.com/jonthornton"
-  },
+  "title": "timepicker-react",
+  "description": "A React TimePicker component based on jquery-timepicker.",
+  "main": "build/index.js",
+  "module": "build/index.es.js",
+  "files": [
+    "build",
+    "src/**/*.{css,js.map}"
+  ],
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -w --config rollup.config.js",
@@ -56,23 +59,17 @@
     "rollup-plugin-terser": "^7.0.2",
     "sass-loader": "^12.1.0"
   },
-  "main": "build/index.js",
-  "module": "build/index.es.js",
-  "files": [
-    "build",
-    "src/**/*.{css,js.map}"
-  ],
-  "description": "A React timepicker plugin inspired by Google Calendar. It supports both mouse and keyboard navigation.",
   "keywords": [
     "timepicker",
     "time",
     "picker",
     "ui",
-    "google calendar"
+    "google calendar",
+    "react"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/mash-a/react-timepicker.git"
+    "url": "https://github.com/mash-a/timepicker-react.git"
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6"

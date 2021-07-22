@@ -1,7 +1,6 @@
 import { roundingFunction } from './rounding';
 
 const DEFAULT_SETTINGS = {
-  appendTo: 'body',
   className: null,
   closeOnWindowScroll: false,
   disableTextInput: false,

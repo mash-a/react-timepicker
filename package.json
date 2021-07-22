@@ -1,6 +1,6 @@
 {
-  "name": "timepicker-react",
-  "version": "1.13.18",
+  "name": "@mash-a/timepicker-react",
+  "version": "0.1.0",
   "title": "timepicker-react",
   "description": "A React TimePicker component based on jquery-timepicker.",
   "main": "build/index.js",

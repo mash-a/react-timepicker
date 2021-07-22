@@ -2,7 +2,7 @@ import * as React from 'react';
 import { _roundAndFormatTime } from 'utils/main';
 
 const Select = props => {
-  const { timeOptions, setTimeValue, settings, roundedValue } = props;
+  const { timeOptions, setTimeValue, settings, roundedValue, enableSelect } = props;
 
   const handleSelectChange = ({ target: { value } }) =>
     setTimeValue(_roundAndFormatTime(value, settings));
@@ -10,7 +10,7 @@ const Select = props => {
   return (
     <select
       aria-label="timePicker"
-      className="select-timepicker"
+      className={`select-timepicker ${!enableSelect && 'hide-me'}`}
       value={roundedValue || ''}
       onChange={handleSelectChange}
       tabIndex="-1"

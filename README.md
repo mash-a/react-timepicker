@@ -18,7 +18,7 @@ yarn add timepicker-react
 
 ```javascript
 import * as React from 'react';
-import { TimePicker } from "@mash-a/timepicker";
+import { TimePicker } from "@mash-a/timepicker-react";
 
 const Demo = () => (
 	const [timeString, setTimeString] = React.useState('');

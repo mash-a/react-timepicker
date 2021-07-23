@@ -23,7 +23,7 @@ const reducer = (state, { type, payload }) => {
 };
 
 const TimePicker = props => {
-  const { onChange = () => {}, value = null, enableSelect = false } = props;
+  const { onChange = () => {}, value = null, enableSelect = false, disabled = false } = props;
   const [{ settings }, dispatch] = React.useReducer(reducer, initialState);
 
   const [err, setErr] = React.useState({});
@@ -34,11 +34,15 @@ const TimePicker = props => {
   const [optionIdx, setOptionIdx] = React.useState(0);
   const [showErr, setShowErr] = React.useState(false);
   const [timeOptions, setTimeOptions] = React.useState([]);
-  const [timeValue, setTimeValue] = React.useState(value);
+  const [timeValue, setTimeValue] = React.useState('');
 
   React.useEffect(() => {
     dispatch({ type: 'init', payload: parseSettings(DEFAULT_SETTINGS) });
   }, []);
+
+  React.useEffect(() => {
+    setTimeValue(value);
+  }, [value]);
 
   // Dropdown Options
   React.useEffect(() => {
@@ -113,6 +117,7 @@ const TimePicker = props => {
           err={err}
           formatTimeValue={formatTimeValue}
           setFocus={setFocus}
+          disabled={disabled}
         />
         {open &&
           <Wrapper

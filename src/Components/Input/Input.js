@@ -2,6 +2,7 @@ import * as React from 'react';
 import { _inputKeyPressDown } from 'utils/keyEvents';
 
 const Input = ({
+  disabled,
   err,
   formatTimeValue,
   showErr,
@@ -30,6 +31,7 @@ const Input = ({
         ${Object.values(err).length
         && ' error-visible'}`}>
       <input
+        disabled={disabled}
         className={`
         ui-timepicker-input
         ${Object.values(err).length

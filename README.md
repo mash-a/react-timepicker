@@ -1,4 +1,4 @@
-# React TimePicker
+# TimePicker
 
 A React TimePicker component based on [jquery-timepicker](https://github.com/jonthornton/jquery-timepicker)
 

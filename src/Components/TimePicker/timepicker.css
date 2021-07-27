@@ -43,6 +43,7 @@
   color: #3c4043;
   line-height: 20px;
   font-size: 14px;
+  z-index: 2001;
 }
 
 .select-wrapper {

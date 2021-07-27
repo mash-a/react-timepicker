@@ -17,13 +17,15 @@ const Input = ({
     setTimeValue(value);
   };
 
-  const handleClick = () => {
+  const handleClick = () =>
     !open && setOpen(true);
-  };
 
   const handleKeyDown = e => {
     _inputKeyPressDown(e, value, setOpen, formatTimeValue, setFocus);
   };
+
+  // Select the input on fous
+  const handleFocus = e => e.target.select();
 
   return (
     <div className={`
@@ -41,6 +43,7 @@ const Input = ({
         onChange={handleInput}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
+        onFocus={handleFocus}
         />
       {showErr && Object.values(err).map((err, i) =>
         <span className="time-input-err-text" key={i}>

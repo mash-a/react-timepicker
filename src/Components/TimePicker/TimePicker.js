@@ -41,7 +41,7 @@ const TimePicker = props => {
   }, []);
 
   React.useEffect(() => {
-    setTimeValue(formatTimeValue(value));
+    setTimeValue(value);
   }, [value]);
 
   // Dropdown Options

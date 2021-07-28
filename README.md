@@ -20,17 +20,41 @@ yarn add timepicker-react
 import * as React from 'react';
 import { TimePicker } from "@mash-a/timepicker-react";
 
+const options = {
+	disableTextInput: 'bool',
+	step: 'integer',
+	timeFormat: 'string',
+	enableSelect: 'bool'
+}
+
 const Demo = () => (
 	const [timeString, setTimeString] = React.useState('');
 
 	const handleChange = value => {
-		// ...
+		setTimeString(value);
+		// …
 	}
 
 	return (
 		<TimePicker
 			value={timeString}
-			onChange={handleChange} />
+			onChange={handleChange} 
+			options={options}
+			/>
 	)
 );
 ```
+## Options
+
+- **disableTextInput**
+Prevents the user from using the input and the dropdown. Primarily for displaying time.
+*default: false*
+
+- **step**  
+The amount of time, in minutes, between each item in the dropdown.
+*default: 30*
+
+- **timeFormat**
+Use [php's date formatting syntax](https://www.php.net/manual/en/function.date.php#example-2058)
+*default: 'g:ia'*
+

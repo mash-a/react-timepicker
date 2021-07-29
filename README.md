@@ -56,5 +56,5 @@ The amount of time, in minutes, between each item in the dropdown.
 
 - **timeFormat**
 Use [php's date formatting syntax](https://www.php.net/manual/en/function.date.php#example-2058)
-*default: 'g:ia'*
+*default: 'g:i A'*
 

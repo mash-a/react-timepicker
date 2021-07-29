@@ -28,7 +28,7 @@ const DEFAULT_SETTINGS = {
   stopScrollPropagation: false,
   timeFormat: 'g:i A',
   typeaheadHighlight: true,
-  useSelect: false,
+  enableSelect: false,
   wrapHours: true,
 };
 

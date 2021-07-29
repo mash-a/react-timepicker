@@ -23,7 +23,7 @@ const reducer = (state, { type, payload }) => {
 };
 
 const TimePicker = props => {
-  const { onChange = () => {}, value = null, enableSelect = false, disabled = false } = props;
+  const { onChange = () => {}, value = null, options = {} } = props;
   const [{ settings }, dispatch] = React.useReducer(reducer, initialState);
 
   const [err, setErr] = React.useState({});
@@ -37,7 +37,7 @@ const TimePicker = props => {
   const [timeValue, setTimeValue] = React.useState('');
 
   React.useEffect(() => {
-    dispatch({ type: 'init', payload: parseSettings(DEFAULT_SETTINGS) });
+    dispatch({ type: 'init', payload: parseSettings({ ...DEFAULT_SETTINGS, ...options }) });
   }, []);
 
   React.useEffect(() => {
@@ -104,7 +104,7 @@ const TimePicker = props => {
           settings={settings}
           timeOptions={timeOptions}
           roundedValue={roundedValue}
-          enableSelect={enableSelect}
+          enableSelect={settings?.enableSelect}
         />
         <Input
           open={open}
@@ -117,7 +117,7 @@ const TimePicker = props => {
           err={err}
           formatTimeValue={formatTimeValue}
           setFocus={setFocus}
-          disabled={disabled}
+          disabled={settings?.disableTextInput}
         />
         {open &&
           <Wrapper

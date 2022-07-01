@@ -28,7 +28,6 @@ const ListItem = ({
       setSelected(classNames.selected);
       setTimeout(() => {
          ref.current.scrollIntoView({
-          behavior: 'smooth',
           block: 'center',
           inline: 'start',
         });
@@ -42,7 +41,6 @@ const ListItem = ({
     if (optionIdx === idx) {
       setSelected(classNames.selected);
       ref.current.scrollIntoView({
-        behavior: 'smooth',
         block: 'center',
         inline: 'start',
       });

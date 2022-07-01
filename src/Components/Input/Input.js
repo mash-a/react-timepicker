@@ -15,6 +15,7 @@ const Input = ({
 
   const handleInput = ({ target: { value } }) => {
     setTimeValue(value);
+    setOpen(false);
   };
 
   const handleClick = () =>
